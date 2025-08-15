@@ -1,19 +1,18 @@
-"use client";
-
-import { motion } from "framer-motion";
+// AnimatedSection.tsx
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface AnimatedSectionProps {
   children: ReactNode;
+  delay?: number; // ✅ Added delay prop
 }
 
-export default function AnimatedSection({ children }: AnimatedSectionProps) {
+export default function AnimatedSection({ children, delay = 0 }: AnimatedSectionProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.6, ease: "easeOut" }}
     >
       {children}
     </motion.div>
