@@ -1,68 +1,77 @@
-"use client"; // Required for animations in Next.js App Router
-
 import Image from "next/image";
-import { motion } from "framer-motion";
+import AnimatedSection from "@/components/AnimatedSection";
+import ScrollReveal from "@/components/ScrollReveal";
+
+// Photo gallery images
+const galleryImages = [
+  { src: "/images/stage.jpeg", alt: "Stage Performance" },
+  { src: "/images/crowd.jpeg", alt: "Crowd at Event" },
+  { src: "/images/fun.jpeg", alt: "Fun Activities" },
+  { src: "/images/music.jpeg", alt: "Live Music" },
+  { src: "/images/dance.jpeg", alt: "Dance Performance" },
+  { src: "/images/festival.jpeg", alt: "Festival Decorations" }
+];
 
 export default function Home() {
   return (
     <main className="p-6">
-      {/* Animated Heading */}
-      <motion.h1
-        className="text-4xl font-bold text-center"
-        initial={{ opacity: 0, y: -40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        Arihant 2025
-      </motion.h1>
 
-      {/* Animated Subtitle */}
-      <motion.p
-        className="mt-2 text-lg text-center text-gray-600"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-      >
-        Annual College Fest 🎉
-      </motion.p>
+      {/* Title */}
+      <AnimatedSection>
+        <h1 className="text-4xl font-bold text-center">Arihant 2025</h1>
+      </AnimatedSection>
 
-      {/* Animated Gallery */}
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: {
-            transition: { staggerChildren: 0.25 }
-          }
-        }}
-      >
-        {[
-          { src: "/images/stage.jpeg", alt: "Stage" },
-          { src: "/images/crowd.jpeg", alt: "Crowd" },
-          { src: "/images/fun.jpeg", alt: "Fun" }
-        ].map((img, idx) => (
-          <motion.div
-            key={idx}
-            className="overflow-hidden rounded-xl shadow-lg"
-            variants={{
-              hidden: { opacity: 0, y: 40, scale: 0.95 },
-              visible: { opacity: 1, y: 0, scale: 1 }
-            }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              width={400}
-              height={300}
-              className="rounded-xl object-cover"
-            />
-          </motion.div>
-        ))}
-      </motion.div>
+      <AnimatedSection delay={0.2}>
+        <p className="mt-2 text-lg text-center">Annual College Fest 🎉</p>
+      </AnimatedSection>
+
+      {/* Photo Gallery */}
+      <section className="mt-12">
+        <AnimatedSection>
+          <h2 className="text-3xl font-semibold text-center mb-8">
+            Event Photo Gallery 📸
+          </h2>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {galleryImages.map((img, index) => (
+            <AnimatedSection key={index} delay={index * 0.15}>
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={400}
+                height={300}
+                className="rounded-xl shadow-lg hover:scale-105 transition-transform duration-300"
+              />
+            </AnimatedSection>
+          ))}
+        </div>
+      </section>
+
+      {/* Highlights */}
+      <section className="bg-black text-white py-20">
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-8">Our Highlights</h2>
+          <p className="mb-10 text-lg">
+            Over the years, Arihant Event has hosted unforgettable nights, impactful workshops, and vibrant cultural gatherings.
+          </p>
+        </div>
+      </section>
+
+      {/* Next Event Teaser */}
+      <section className="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-20 text-center">
+        <h2 className="text-3xl font-bold mb-4">Next Event Coming Soon 🎉</h2>
+        <p className="text-lg">Stay tuned for the most exciting night of the year!</p>
+      </section>
+
+      {/* Call-to-Action */}
+      <section className="bg-black text-white py-20 text-center">
+        <h2 className="text-4xl font-bold mb-4">Be Part of the Fun</h2>
+        <p className="mb-6">Join our events and make unforgettable memories!</p>
+        <button className="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full text-lg">
+          Register Now
+        </button>
+      </section>
     </main>
   );
 }
